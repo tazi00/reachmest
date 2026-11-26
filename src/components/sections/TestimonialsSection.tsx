@@ -11,7 +11,7 @@ const testimonials = [
     role: "CEO",
     company: "Nexora Solutions",
     initials: "JM",
-    color: "bg-blue-600",
+    color: "bg-zinc-950",
   },
   {
     quote:
@@ -40,7 +40,7 @@ const testimonials = [
     initials: "EC",
     color: "bg-orange-600",
   },
-]
+];
 
 export default function TestimonialsSection() {
   const [active, setActive] = useState(0)
@@ -51,23 +51,23 @@ export default function TestimonialsSection() {
   const t = testimonials[active]
 
   return (
-    <section className="bg-white py-24 px-6">
+    <section className="bg-surface py-24 px-6">
       <div className="max-w-6xl mx-auto">
-
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-          <div>
-            <span className="inline-block text-blue-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">
-              Client Testimonials
-            </span>
-            <h2 className="text-zinc-900 text-4xl md:text-[44px] font-bold leading-tight">
-              Words From Our{' '}
-              <span className="text-blue-600">Clients</span>
-            </h2>
-          </div>
+        <div className="text-center">
+          <span className="inline-block text-blue-500 text-xs font-bold uppercase tracking-[0.2em] mb-2">
+            Client Testimonials
+          </span>
+          <h2 className="text-white text-4xl md:text-[44px] font-bold leading-tight">
+            Words From Our <span className="text-blue-600">Clients</span>
+          </h2>
+          <p className="text-gray-400 text-[15px] mt-3 max-w-xl mx-auto leading-7 mb-12">
+            Everything you need to know about our digital marketing and software
+            development services.
+          </p>
 
           {/* Nav arrows */}
-          <div className="flex gap-3">
+          {/* <div className="flex gap-3">
             <button
               onClick={prev}
               className="w-11 h-11 rounded-full border border-zinc-200 hover:border-blue-500 hover:text-blue-600 flex items-center justify-center transition-colors duration-200"
@@ -80,27 +80,34 @@ export default function TestimonialsSection() {
             >
               <ChevronRight className="w-5 h-5" />
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Main layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
           {/* Left — Featured quote card */}
-          <div className="bg-zinc-950 rounded-3xl p-10 flex flex-col justify-between min-h-[380px]">
-            <Quote className="w-10 h-10 text-blue-500 mb-6" fill="currentColor" strokeWidth={0} />
+          <div className="bg-blue-500 rounded-3xl p-10 flex flex-col justify-between min-h-[380px]">
+            <Quote
+              className="w-10 h-10 text-blue-500 mb-6"
+              fill="currentColor"
+              strokeWidth={0}
+            />
 
             <p className="text-white text-[18px] leading-8 font-light flex-1">
               {t.quote}
             </p>
 
             <div className="mt-8 flex items-center gap-4">
-              <div className={`w-12 h-12 rounded-full ${t.color} flex items-center justify-center text-white font-bold text-[15px] shrink-0`}>
+              <div
+                className={`w-12 h-12 rounded-full ${t.color} flex items-center justify-center text-white font-bold text-[15px] shrink-0`}
+              >
                 {t.initials}
               </div>
               <div>
                 <p className="text-white font-semibold">{t.name}</p>
-                <p className="text-zinc-400 text-[14px]">{t.role} — {t.company}</p>
+                <p className="text-zinc-400 text-[14px]">
+                  {t.role} — {t.company}
+                </p>
               </div>
             </div>
           </div>
@@ -117,12 +124,18 @@ export default function TestimonialsSection() {
                   className="text-left bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 hover:border-zinc-300 rounded-2xl p-6 transition-all duration-200 group"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className={`w-9 h-9 rounded-full ${item.color} flex items-center justify-center text-white font-bold text-[12px] shrink-0`}>
+                    <div
+                      className={`w-9 h-9 rounded-full ${item.color} flex items-center justify-center text-white font-bold text-[12px] shrink-0`}
+                    >
                       {item.initials}
                     </div>
                     <div>
-                      <p className="text-zinc-900 font-semibold text-[14px]">{item.name}</p>
-                      <p className="text-zinc-400 text-[12px]">{item.role} — {item.company}</p>
+                      <p className="text-zinc-900 font-semibold text-[14px]">
+                        {item.name}
+                      </p>
+                      <p className="text-zinc-400 text-[12px]">
+                        {item.role} — {item.company}
+                      </p>
                     </div>
                   </div>
                   <p className="text-zinc-500 text-[13px] leading-5 line-clamp-2 group-hover:text-zinc-700 transition-colors">
@@ -131,7 +144,6 @@ export default function TestimonialsSection() {
                 </button>
               ))}
           </div>
-
         </div>
 
         {/* Dots */}
@@ -141,13 +153,12 @@ export default function TestimonialsSection() {
               key={i}
               onClick={() => setActive(i)}
               className={`h-2 rounded-full transition-all duration-300 ${
-                i === active ? 'w-6 bg-blue-600' : 'w-2 bg-zinc-300'
+                i === active ? "w-6 bg-blue-600" : "w-2 bg-zinc-300"
               }`}
             />
           ))}
         </div>
-
       </div>
     </section>
-  )
+  );
 }

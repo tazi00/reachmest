@@ -1,547 +1,244 @@
 'use client'
 
 import { useState } from 'react'
+import type { IconType } from "react-icons";
+import {
+  SiGoogleads,
+  SiGoogleanalytics,
+  SiMeta,
+  SiSemrush,
+  SiHubspot,
+  SiMailchimp,
+  SiHotjar,
+  SiGooglesearchconsole,
+  SiAnthropic,
+  SiLangchain,
+  SiPerplexity,
+  SiHuggingface,
+  SiMake,
+  SiN8N,
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiVuedotjs,
+  SiFigma,
+  SiHtml5,
+  SiFramer,
+  SiNodedotjs,
+  SiPython,
+  SiLaravel,
+  SiFastapi,
+  SiGraphql,
+  SiExpress,
+  SiFastify,
+  SiOpenapiinitiative,
+  SiFlutter,
+  SiExpo,
+  SiSwift,
+  SiKotlin,
+  SiPostgresql,
+  SiMongodb,
+  SiMysql,
+  SiRedis,
+  SiFirebase,
+  SiSupabase,
+  SiGooglecloud,
+  SiVercel,
+  SiCloudflare,
+  SiDigitalocean,
+  SiDocker,
+  SiGithubactions,
+  SiLinux,
+  SiKubernetes,
+  SiNginx,
+  SiCircleci,
+} from "react-icons/si";
 
 type TabItem = { icon: React.ReactNode; label: string }
 type Tab = { label: string; items: TabItem[] }
 
-// ─── Brand SVG logos ──────────────────────────────────────────────────────────
+const I = ({ C, color }: { C: IconType; color: string }) => (
+  <C size={28} style={{ color }} />
+);
 
-const logos = {
-  // ── Marketing Tech ────────────────────────────────────────────────────────
-  googleAds: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M2.5 17.5L9 6l3.5 6.06-3 5.44H2.5z" fill="#FBBC04"/>
-      <path d="M9 6l3.5 6.06L16 6H9z" fill="#4285F4"/>
-      <path d="M12.5 12.06L16 6l5 8.66H15l-2.5-2.6z" fill="#34A853"/>
-      <circle cx="20.5" cy="17.5" r="2.5" fill="#EA4335"/>
-      <circle cx="3.5" cy="17.5" r="2.5" fill="#FBBC04"/>
-    </svg>
-  ),
-  googleAnalytics: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect x="3" y="12" width="4" height="9" rx="2" fill="#F9AB00"/>
-      <rect x="10" y="7" width="4" height="14" rx="2" fill="#E37400"/>
-      <rect x="17" y="2" width="4" height="19" rx="2" fill="#E8710A"/>
-    </svg>
-  ),
-  metaAds: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M2 12.5C2 9 4.2 7 6.5 7c1.5 0 2.8.9 4 2.8C11.6 7.9 13 7 14.5 7c3 0 5.5 2.5 5.5 6.5 0 2.2-.8 4-2 4s-2-1.5-2-3.5c0-1.3-.4-2-1-2s-1.2 1-2 2.5c-.8 1.5-1.8 2.5-3 2.5-1.2 0-2.2-1-3-2.5-.8-1.5-1.5-2.5-2-2.5-.5 0-.5 1.5-.5 2.5H2v-1.5z" fill="#0082FB"/>
-    </svg>
-  ),
-  semrush: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#FF642D"/>
-      <text x="4" y="17" fill="white" fontSize="13" fontWeight="800" fontFamily="Arial">S</text>
-    </svg>
-  ),
-  ahrefs: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#FF7043"/>
-      <path d="M7 17L10 7h4l3 10h-3l-.5-1.8h-3L10 17H7zm3.8-4h2.4l-1.2-4.2L10.8 13z" fill="white"/>
-    </svg>
-  ),
-  hubspot: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="16" cy="8" r="3" fill="#FF7A59"/>
-      <circle cx="16" cy="8" r="1.5" fill="white"/>
-      <path d="M13 8H8v8h5V8z" fill="none" stroke="#FF7A59" strokeWidth="1.5"/>
-      <path d="M8 12h5" stroke="#FF7A59" strokeWidth="1.5"/>
-      <circle cx="8" cy="8" r="1.5" fill="#FF7A59"/>
-      <circle cx="8" cy="16" r="1.5" fill="#FF7A59"/>
-    </svg>
-  ),
-  mailchimp: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M20 10c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z" fill="#FFE01B"/>
-      <path d="M12 7c-1.7 0-3 1.1-3 2.5 0 .8.4 1.5 1 2l-.5 1.5h5l-.5-1.5c.6-.5 1-1.2 1-2C15 8.1 13.7 7 12 7z" fill="#241C15"/>
-      <circle cx="10.5" cy="10" r=".5" fill="#FFE01B"/>
-      <circle cx="13.5" cy="10" r=".5" fill="#FFE01B"/>
-    </svg>
-  ),
-  hotjar: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#FD3A5C"/>
-      <path d="M8 7v10M12 10v7M16 7v10" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  ),
-  searchConsole: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="10" cy="10" r="6" stroke="#4285F4" strokeWidth="2" fill="none"/>
-      <path d="M14.5 14.5L19 19" stroke="#34A853" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M7 10h6M10 7v6" stroke="#EA4335" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  ),
+// Brand SVGs for logos not in simple-icons
+const OpenAIIcon = () => (
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="#10A37F">
+    <path d="M22.282 9.821a5.985 5.985 0 00-.516-4.91 6.046 6.046 0 00-6.51-2.9A6.065 6.065 0 004.981 4.18a5.985 5.985 0 00-3.998 2.9 6.046 6.046 0 00.743 7.097 5.98 5.98 0 00.51 4.911 6.051 6.051 0 006.515 2.9A5.985 5.985 0 0013.26 24a6.056 6.056 0 005.772-4.206 5.99 5.99 0 003.997-2.9 6.056 6.056 0 00-.747-7.073zM13.26 22.43a4.476 4.476 0 01-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 00.392-.681v-6.737l2.02 1.168a.071.071 0 01.038.052v5.583a4.504 4.504 0 01-4.494 4.494zM3.6 18.304a4.47 4.47 0 01-.535-3.014l.142.085 4.783 2.759a.771.771 0 00.78 0l5.843-3.369v2.332a.08.08 0 01-.033.062L9.74 19.95a4.5 4.5 0 01-6.14-1.646zM2.34 7.896a4.485 4.485 0 012.366-1.973V11.6a.766.766 0 00.388.676l5.815 3.355-2.02 1.168a.076.076 0 01-.071 0l-4.83-2.786A4.504 4.504 0 012.34 7.896zm16.597 3.855l-5.843-3.369 2.02-1.168a.076.076 0 01.071 0l4.83 2.782a4.5 4.5 0 01-.695 8.118V12.56a.79.79 0 00-.383-.81zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 00-.785 0L9.409 9.23V6.897a.066.066 0 01.028-.061l4.83-2.787a4.5 4.5 0 016.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 01-.038-.057V6.075a4.5 4.5 0 017.375-3.453l-.142.08L8.704 5.46a.795.795 0 00-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z" />
+  </svg>
+);
 
-  // ── AI & GenAI ─────────────────────────────────────────────────────────────
-  openai: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M22 11.5a5.5 5.5 0 00-3.3-5.1 5.5 5.5 0 00-9.5-2.9A5.5 5.5 0 002 8.5a5.5 5.5 0 001.4 9.1A5.5 5.5 0 0012.8 22a5.5 5.5 0 005.3-4A5.5 5.5 0 0022 11.5z" stroke="#10A37F" strokeWidth="1.5" fill="none"/>
-      <circle cx="12" cy="12" r="2.5" fill="#10A37F"/>
-    </svg>
-  ),
-  claude: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#CC785C"/>
-      <path d="M6 16l3-8 3 8M7.5 13h3M14 8v8M14 12h3a1.5 1.5 0 000-4h-3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  langchain: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#1C3144"/>
-      <circle cx="8" cy="12" r="2.5" fill="none" stroke="#00D1B2" strokeWidth="1.5"/>
-      <circle cx="16" cy="12" r="2.5" fill="none" stroke="#00D1B2" strokeWidth="1.5"/>
-      <path d="M10.5 12h3" stroke="#00D1B2" strokeWidth="1.5"/>
-    </svg>
-  ),
-  perplexity: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#20808D"/>
-      <path d="M12 4l2 7h7l-5.5 4 2 7L12 18l-5.5 4 2-7L3 11h7z" fill="white" opacity=".9"/>
-    </svg>
-  ),
-  midjourney: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#000"/>
-      <path d="M5 18L9 7l3 8 3-8 4 11" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  huggingface: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="12" cy="12" r="10" fill="#FFD21E"/>
-      <circle cx="9" cy="11" r="1.5" fill="#333"/>
-      <circle cx="15" cy="11" r="1.5" fill="#333"/>
-      <path d="M8 15c1 1.5 2 2 4 2s3-.5 4-2" stroke="#333" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
-      <path d="M7 8c0-1.5 1-2.5 2-2.5s1.5.5 1.5.5M17 8c0-1.5-1-2.5-2-2.5S13.5 6 13.5 6" stroke="#333" strokeWidth="1.2" strokeLinecap="round"/>
-    </svg>
-  ),
-  make: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#6D00CC"/>
-      <path d="M5 12h14M12 5l7 7-7 7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  n8n: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#EA4B71"/>
-      <text x="2.5" y="16.5" fill="white" fontSize="8.5" fontWeight="800" fontFamily="monospace">n8n</text>
-    </svg>
-  ),
+const AhrefsIcon = () => (
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+    <rect width="24" height="24" rx="5" fill="#FF7043" />
+    <path
+      d="M7.2 17L10.4 7h3.2L16.8 17h-2.9l-.6-2H10.6l-.6 2H7.2zm4-4.2h2.6l-1.3-4.3-1.3 4.3z"
+      fill="white"
+    />
+  </svg>
+);
 
-  // ── Frontend ───────────────────────────────────────────────────────────────
-  react: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" strokeWidth="1.5" fill="none"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" strokeWidth="1.5" fill="none" transform="rotate(60 12 12)"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" strokeWidth="1.5" fill="none" transform="rotate(120 12 12)"/>
-      <circle cx="12" cy="12" r="2" fill="#61DAFB"/>
-    </svg>
-  ),
-  nextjs: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="12" cy="12" r="10" fill="#000"/>
-      <path d="M7 17V7l10 12V7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  typescript: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="4" fill="#3178C6"/>
-      <path d="M5 10h6M8 10v7" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M13 14c0-1 .8-2 2.5-2s2.5.9 2.5 2-.8 2-2.5 2-2.5.9-2.5 2 .8 2 2.5 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-    </svg>
-  ),
-  tailwind: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M6 11c0-2.7 1.35-4.05 4.05-4.05C12.75 6.95 13.5 8.3 15 8.3c1.8 0 2.7-1.35 2.7-4.05M6 17c0-2.7 1.35-4.05 4.05-4.05 2.7 0 3.45 1.35 4.95 1.35 1.8 0 2.7-1.35 2.7-4.05" stroke="#06B6D4" strokeWidth="2" strokeLinecap="round" fill="none"/>
-    </svg>
-  ),
-  vue: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M2 4h4l6 11 6-11h4L12 22 2 4z" fill="#42B883"/>
-      <path d="M6 4h4l2 3.6L14 4h4l-6 11L6 4z" fill="#35495E"/>
-    </svg>
-  ),
-  figma: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect x="4" y="4" width="8" height="8" rx="4" fill="#F24E1E"/>
-      <rect x="12" y="4" width="8" height="8" rx="4" fill="#FF7262"/>
-      <rect x="4" y="12" width="8" height="8" rx="4" fill="#A259FF"/>
-      <rect x="12" y="12" width="8" height="8" rx="4" fill="#1ABCFE"/>
-      <circle cx="8" cy="12" r="4" fill="#0ACF83"/>
-    </svg>
-  ),
-  html: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M4 3l1.5 16L12 21l6.5-2L20 3H4z" fill="#E34F26"/>
-      <path d="M12 5v14.5l5-1.4L18.2 5H12z" fill="#EF652A"/>
-      <path d="M7.5 9h4.5v2H8l.3 3h3.7v2H7.2L7.5 9zm.5-4h7l-.2 2H8.2L8 5z" fill="white"/>
-      <path d="M12 9h3.5l-.3 3H12v-1.3h2l.1-1.7H12V9zm0 4h1.9l-.2 2.2-1.7.5V13z" fill="#EBEBEB"/>
-    </svg>
-  ),
-  framer: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M5 4h14v8H12L5 4z" fill="#0055FF"/>
-      <path d="M5 12h7l7 8H5v-8z" fill="#0055FF" opacity=".6"/>
-      <path d="M5 20h7l-7-8v8z" fill="#0055FF" opacity=".3"/>
-    </svg>
-  ),
+const AwsIcon = () => (
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+    <path
+      d="M6.763 10.036c0 .296.032.535.088.71.064.176.144.368.256.576a.347.347 0 01.056.184.337.337 0 01-.16.272l-.528.352a.4.4 0 01-.216.072.39.39 0 01-.248-.104 2.552 2.552 0 01-.296-.384 6.33 6.33 0 01-.256-.48c-.64.752-1.448 1.128-2.416 1.128-.688 0-1.24-.196-1.648-.592-.408-.392-.616-.92-.616-1.576 0-.696.248-1.264.744-1.688.496-.424 1.152-.64 1.984-.64.272 0 .56.024.856.064.296.04.6.1.92.168V7.9c0-.616-.128-1.048-.384-1.296-.256-.248-.688-.368-1.296-.368-.28 0-.568.032-.864.1-.296.064-.584.152-.864.264a2.337 2.337 0 01-.296.104.504.504 0 01-.128.016c-.112 0-.168-.08-.168-.24v-.376c0-.12.016-.216.056-.264a.577.577 0 01.224-.16 4.5 4.5 0 011.072-.304 5.4 5.4 0 011.168-.12c.888 0 1.536.2 1.952.6.408.4.616 1.008.616 1.824v2.4zm-3.336 1.248c.264 0 .536-.048.824-.144.288-.096.544-.272.76-.512.128-.152.224-.32.272-.512.048-.192.08-.424.08-.696v-.336a7.014 7.014 0 00-.744-.128 6.14 6.14 0 00-.76-.048c-.544 0-.944.104-1.208.32-.264.216-.392.52-.392.912 0 .368.096.648.288.832.192.192.464.312.88.312zm6.504.88c-.136 0-.224-.024-.28-.072-.056-.04-.104-.136-.144-.264L7.9 6.796a1.19 1.19 0 01-.064-.272c0-.112.056-.168.168-.168h.688c.144 0 .24.024.288.072.056.04.096.136.136.264l1.168 4.608 1.08-4.608c.032-.136.072-.224.128-.264a.467.467 0 01.296-.072h.56c.144 0 .24.024.296.072.056.04.104.136.128.264l1.096 4.664 1.2-4.664c.04-.136.088-.224.136-.264a.447.447 0 01.288-.072h.656c.112 0 .168.056.168.168 0 .032-.008.064-.016.104a.874.874 0 01-.048.176l-1.664 5.032c-.04.136-.08.224-.136.264-.056.04-.152.072-.28.072h-.6a.44.44 0 01-.288-.072c-.056-.04-.104-.136-.128-.272L12.3 7.9l-1.072 4.6c-.032.136-.072.232-.128.272a.449.449 0 01-.296.072h-.672zm8.88.168a4.72 4.72 0 01-1.096-.128 3.264 3.264 0 01-.816-.296.5.5 0 01-.216-.224.56.56 0 01-.04-.216v-.392c0-.16.056-.24.168-.24.04 0 .08.008.12.024.04.016.096.04.16.072.216.096.448.168.696.216.248.048.488.072.736.072.392 0 .696-.064.904-.2.208-.136.32-.328.32-.576 0-.168-.056-.312-.168-.432-.112-.12-.32-.232-.632-.336l-.904-.28c-.456-.144-.792-.36-.992-.648-.2-.28-.304-.592-.304-.928 0-.264.056-.496.168-.696.112-.2.264-.376.456-.52.192-.136.408-.24.656-.312.248-.072.512-.104.784-.104.136 0 .28.008.416.024.144.016.272.04.4.072.12.024.232.056.336.096.104.04.184.08.24.12a.498.498 0 01.168.168.448.448 0 01.04.2v.36c0 .16-.056.248-.16.248-.056 0-.144-.024-.264-.072a3.206 3.206 0 00-1.312-.272c-.352 0-.632.056-.824.176-.192.12-.288.296-.288.544 0 .168.064.312.192.432.128.12.36.24.696.344l.888.28c.448.144.776.344.976.6.2.256.296.552.296.88 0 .272-.056.52-.168.736-.112.216-.264.4-.464.552-.2.152-.432.264-.704.344-.28.08-.576.12-.888.12z"
+      fill="#FF9900"
+    />
+    <path
+      d="M20.16 17.208c-2.4 1.776-5.888 2.72-8.888 2.72-4.208 0-7.992-1.552-10.856-4.136-.224-.2-.024-.48.248-.32 3.088 1.792 6.904 2.872 10.848 2.872 2.664 0 5.592-.552 8.288-1.696.408-.176.744.272.36.56z"
+      fill="#FF9900"
+    />
+    <path
+      d="M21.12 16.112c-.312-.4-2.048-.184-2.824-.096-.232.024-.272-.176-.056-.328 1.376-.968 3.64-.688 3.904-.368.264.328-.072 2.6-1.36 3.68-.2.168-.384.08-.296-.136.288-.736.936-2.352.632-2.752z"
+      fill="#FF9900"
+    />
+  </svg>
+);
 
-  // ── Backend ────────────────────────────────────────────────────────────────
-  nodejs: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 2L2 7.5v9L12 22l10-5.5v-9L12 2z" fill="#339933"/>
-      <path d="M12 6v12M7.5 8.5l4.5 3.5-4.5 3.5M16.5 8.5l-4.5 3.5 4.5 3.5" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  python: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 2C8 2 7 4 7 6v2h5v1H5C3 9 2 10.5 2 13s1 4 3 4h2v-2c0-2 1.5-3 3-3h4c2 0 3-1 3-3V6c0-2-1-4-5-4zm-1.5 2.5a1 1 0 110 2 1 1 0 010-2z" fill="#3776AB"/>
-      <path d="M12 22c4 0 5-2 5-4v-2h-5v-1h7c2 0 3-1.5 3-4s-1-4-3-4h-2v2c0 2-1.5 3-3 3H10c-2 0-3 1-3 3v3c0 2 1 4 5 4zm1.5-2.5a1 1 0 110-2 1 1 0 010 2z" fill="#FFD43B"/>
-    </svg>
-  ),
-  laravel: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M23 7.5L18 2 9 5 4.5 10l1 7 5.5 5 7.5-1.5L22 15l1-7.5z" fill="#FF2D20" opacity=".9"/>
-      <path d="M9 5l4 6-4.5 6M14 11l5-4M13 17l5.5 1" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  fastapi: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="12" cy="12" r="10" fill="#009688"/>
-      <path d="M13 4l-5 10h5l-2 6 7-10h-5l2-6z" fill="white"/>
-    </svg>
-  ),
-  graphql: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="#E10098" strokeWidth="1.5" fill="none"/>
-      <circle cx="12" cy="3" r="1.5" fill="#E10098"/>
-      <circle cx="20" cy="7.5" r="1.5" fill="#E10098"/>
-      <circle cx="20" cy="16.5" r="1.5" fill="#E10098"/>
-      <circle cx="12" cy="21" r="1.5" fill="#E10098"/>
-      <circle cx="4" cy="16.5" r="1.5" fill="#E10098"/>
-      <circle cx="4" cy="7.5" r="1.5" fill="#E10098"/>
-      <line x1="4" y1="7.5" x2="20" y2="7.5" stroke="#E10098" strokeWidth="1"/>
-      <line x1="4" y1="16.5" x2="20" y2="16.5" stroke="#E10098" strokeWidth="1"/>
-    </svg>
-  ),
-  express: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="4" fill="#000"/>
-      <text x="2" y="16" fill="white" fontSize="10" fontWeight="700" fontFamily="Arial">Ex</text>
-    </svg>
-  ),
-  fastify: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="4" fill="#000"/>
-      <path d="M6 8h12M6 12h8M6 16h10" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M17 14l3-2-3-2" stroke="#00E5FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  restapi: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="4" fill="#6366F1"/>
-      <path d="M4 12h16M14 7l5 5-5 5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
+const AzureIcon = () => (
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+    <path
+      d="M13.05 4.24L6.56 18.05l5.11.08-4.63 1.87 9.6-.01L13.05 4.24z"
+      fill="#0078D4"
+    />
+    <path
+      d="M13.26 4.24L9.03 10.1l3.52 5.71-6.4.09L13.26 4.24z"
+      fill="#0078D4"
+      opacity="0.5"
+    />
+  </svg>
+);
 
-  // ── Mobile ─────────────────────────────────────────────────────────────────
-  flutter: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M13 3L4 12l3 3 9-9-3-3z" fill="#54C5F8"/>
-      <path d="M13 3l-3 3 6 6-3 3 3 3 6-6-9-9z" fill="#01579B"/>
-      <path d="M10 18l3-3-3-3-3 3 3 3z" fill="#29B6F6"/>
-    </svg>
-  ),
-  expo: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#000"/>
-      <path d="M4 12C4 8 7.5 5 12 5s8 3 8 7c0 2-1 3.5-2 4.5L12 20l-6-3.5C5 15.5 4 14 4 12z" fill="white" opacity=".9"/>
-    </svg>
-  ),
-  swift: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#F05138"/>
-      <path d="M19 7c-2-3-7-4.5-11-2 3 2.5 5 5.5 5 8-1.5-1.5-4-4-5.5-5.5C8 10.5 9.5 14.5 11 17c-2.5-1-4.5-3-5-6C4 15.5 6 20 11 21c5 .5 8-3 8-7.5 0-2-.5-4.5-1.5-6.5H19z" fill="white"/>
-    </svg>
-  ),
-  kotlin: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M2 2h20L12 12l10 10H2V2z" fill="url(#kotlinGrad)"/>
-      <defs>
-        <linearGradient id="kotlinGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#7F52FF"/>
-          <stop offset="50%" stopColor="#C811E1"/>
-          <stop offset="100%" stopColor="#E8440E"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  ),
-  pwa: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect width="24" height="24" rx="6" fill="#5A0FC8"/>
-      <text x="1.5" y="15.5" fill="white" fontSize="7" fontWeight="900" fontFamily="Arial">PWA</text>
-    </svg>
-  ),
-  reactNative: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" strokeWidth="1.4" fill="none"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" strokeWidth="1.4" fill="none" transform="rotate(60 12 12)"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61DAFB" strokeWidth="1.4" fill="none" transform="rotate(120 12 12)"/>
-      <circle cx="12" cy="12" r="2" fill="#61DAFB"/>
-    </svg>
-  ),
-
-  // ── Database ───────────────────────────────────────────────────────────────
-  postgres: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <ellipse cx="12" cy="6" rx="8" ry="3" fill="#336791"/>
-      <path d="M4 6v8c0 1.7 3.6 3 8 3s8-1.3 8-3V6" stroke="#336791" strokeWidth="1.5" fill="#4A90D9" opacity=".3"/>
-      <path d="M4 10c0 1.7 3.6 3 8 3s8-1.3 8-3" stroke="#336791" strokeWidth="1.5"/>
-      <path d="M20 10v4" stroke="#336791" strokeWidth="1.5"/>
-      <path d="M4 10v4" stroke="#336791" strokeWidth="1.5"/>
-    </svg>
-  ),
-  mongodb: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 2C8 2 6 6 6 10c0 2.5 1 5 3 6.5l1 5.5h4l1-5.5c2-1.5 3-4 3-6.5 0-4-2-8-6-8z" fill="#47A248"/>
-      <path d="M12 4v14" stroke="#A8D08D" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  ),
-  mysql: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M4 6h16M4 12h10M4 18h16" stroke="#00758F" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M15 15l3-3 3 3" stroke="#F29111" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M18 12v7" stroke="#F29111" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  ),
-  redis: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <ellipse cx="12" cy="17" rx="8" ry="3" fill="#DC382D"/>
-      <ellipse cx="12" cy="12" rx="8" ry="3" fill="#DC382D"/>
-      <ellipse cx="12" cy="7" rx="8" ry="3" fill="#DC382D"/>
-      <line x1="4" y1="7" x2="4" y2="17" stroke="#DC382D" strokeWidth="1.5"/>
-      <line x1="20" y1="7" x2="20" y2="17" stroke="#DC382D" strokeWidth="1.5"/>
-      <ellipse cx="12" cy="7" rx="8" ry="3" fill="#FF6B6B"/>
-    </svg>
-  ),
-  firebase: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M5 20L7 7l4 4 2-7 5 9L5 20z" fill="#FFCA28"/>
-      <path d="M5 20l7-3.5L18 13 13 4l-2 7-4-4L5 20z" fill="#F57F17" opacity=".8"/>
-      <path d="M5 20l7-3.5V4L9 11l-4 9z" fill="#FF8F00"/>
-    </svg>
-  ),
-  supabase: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M11.9 4L4 14.5h7.2l-.3 5.5L19 9h-7.2L11.9 4z" fill="#3ECF8E"/>
-    </svg>
-  ),
-
-  // ── Cloud ──────────────────────────────────────────────────────────────────
-  aws: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M7 14c-2.5-.5-4-2-4-4a4 4 0 014-4c.5-2 2.3-3.5 4.5-3.5A5.5 5.5 0 0117 7c2 .5 4 2 4 4s-2 3.5-4 3.5" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-      <path d="M7 19l2.5-2.5M17 19l-2.5-2.5M12 20v-6" stroke="#FF9900" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  ),
-  gcp: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M15 5H9L5 10l2.5 5H9l3 4 3-4h1.5L19 10l-4-5z" fill="none" stroke="#4285F4" strokeWidth="1.5" strokeLinejoin="round"/>
-      <circle cx="8.5" cy="10" r="1.5" fill="#EA4335"/>
-      <circle cx="15.5" cy="10" r="1.5" fill="#34A853"/>
-      <circle cx="12" cy="14" r="1.5" fill="#FBBC04"/>
-    </svg>
-  ),
-  vercel: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="12" cy="12" r="10" fill="#000"/>
-      <path d="M12 7l7 10H5l7-10z" fill="white"/>
-    </svg>
-  ),
-  cloudflare: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M15.5 14.5c.3-.8.2-1.8-.4-2.5-.6-.6-1.4-.9-2.3-.8l-6.3.1a.3.3 0 01-.2-.5c.4-.6 1-.9 1.7-.9l.8.1a4 4 0 017.4-1.5c.2 0 .4 0 .6.1a2.5 2.5 0 012.2 2.5 2.5 2.5 0 01-2.5 2.5l-1-.1z" fill="#F38020"/>
-      <path d="M17 14.5H6.5a.3.3 0 010-.6l10.5-.1a1.8 1.8 0 010 .7z" fill="#FBAD41"/>
-    </svg>
-  ),
-  digitalocean: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="12" cy="10" r="6" fill="none" stroke="#0080FF" strokeWidth="2"/>
-      <circle cx="12" cy="10" r="3" fill="#0080FF"/>
-      <line x1="6" y1="17" x2="12" y2="17" stroke="#0080FF" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="6" y1="20" x2="9.5" y2="20" stroke="#0080FF" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  ),
-  azure: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M13 3L6 14h5l-4 7h12L13 3z" fill="url(#azureGrad)"/>
-      <defs>
-        <linearGradient id="azureGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#0078D4"/>
-          <stop offset="100%" stopColor="#50E6FF"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  ),
-
-  // ── DevOps ─────────────────────────────────────────────────────────────────
-  docker: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <rect x="2" y="10" width="4" height="3" rx="1" fill="#2496ED"/>
-      <rect x="7" y="10" width="4" height="3" rx="1" fill="#2496ED"/>
-      <rect x="12" y="10" width="4" height="3" rx="1" fill="#2496ED"/>
-      <rect x="7" y="6" width="4" height="3" rx="1" fill="#2496ED"/>
-      <rect x="12" y="6" width="4" height="3" rx="1" fill="#2496ED"/>
-      <path d="M2 15c1.5 2.5 4.5 3.5 8 2.5 2-.5 4-2 5-4 1.5 0 4-.5 5-3" stroke="#2496ED" strokeWidth="1.3" strokeLinecap="round" fill="none"/>
-      <circle cx="20" cy="11" r="1" fill="#2496ED"/>
-    </svg>
-  ),
-  github: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7C6.7 19.9 6.1 18 6.1 18c-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.3 9.3 0 015 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.5 4.9.3.3.6.9.6 1.8V21c0 .3.2.6.7.5C19.1 20.2 22 16.4 22 12c0-5.5-4.5-10-10-10z" fill="#333"/>
-    </svg>
-  ),
-  cicd: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <circle cx="5" cy="12" r="2.5" fill="none" stroke="#6366F1" strokeWidth="1.5"/>
-      <circle cx="19" cy="12" r="2.5" fill="none" stroke="#6366F1" strokeWidth="1.5"/>
-      <circle cx="12" cy="5" r="2.5" fill="none" stroke="#6366F1" strokeWidth="1.5"/>
-      <circle cx="12" cy="19" r="2.5" fill="none" stroke="#6366F1" strokeWidth="1.5"/>
-      <path d="M7.5 12h9M12 7.5v9" stroke="#6366F1" strokeWidth="1.2" strokeLinecap="round"/>
-    </svg>
-  ),
-  linux: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 2C9 2 7 4 7 7c0 2 .8 4 2 5.5V15l-2 1.5C5.5 17.5 5 19 5 20h14c0-1-.5-2.5-2-3.5L15 15v-2.5C16.2 11 17 9 17 7c0-3-2-5-5-5z" fill="#E8D44D" stroke="#000" strokeWidth=".5"/>
-      <circle cx="10" cy="8" r="1" fill="#000"/>
-      <circle cx="14" cy="8" r="1" fill="#000"/>
-      <path d="M10 10.5c.5.7 1.5.7 2 0" stroke="#000" strokeWidth=".8" strokeLinecap="round"/>
-    </svg>
-  ),
-  kubernetes: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 3l7 4v9l-7 4-7-4V7l7-4z" stroke="#326CE5" strokeWidth="1.5" fill="none"/>
-      <circle cx="12" cy="12" r="2" fill="#326CE5"/>
-      <line x1="12" y1="3" x2="12" y2="10" stroke="#326CE5" strokeWidth="1"/>
-      <line x1="12" y1="14" x2="12" y2="21" stroke="#326CE5" strokeWidth="1"/>
-      <line x1="5" y1="7" x2="10.3" y2="10.5" stroke="#326CE5" strokeWidth="1"/>
-      <line x1="13.7" y1="13.5" x2="19" y2="17" stroke="#326CE5" strokeWidth="1"/>
-      <line x1="19" y1="7" x2="13.7" y2="10.5" stroke="#326CE5" strokeWidth="1"/>
-      <line x1="10.3" y1="13.5" x2="5" y2="17" stroke="#326CE5" strokeWidth="1"/>
-    </svg>
-  ),
-  nginx: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" fill="#009639"/>
-      <path d="M8 17V7l8 10V7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-}
-
-// ─── Tab data using brand SVGs ────────────────────────────────────────────────
+const PwaIcon = () => (
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+    <rect width="24" height="24" rx="6" fill="#5A0FC8" />
+    <text
+      x="1.5"
+      y="15.5"
+      fill="white"
+      fontSize="7"
+      fontWeight="900"
+      fontFamily="Arial"
+    >
+      PWA
+    </text>
+  </svg>
+);
 
 const tabs: Tab[] = [
   {
-    label: 'Marketing Tech',
+    label: "Marketing Tech",
     items: [
-      { icon: logos.googleAds,     label: 'Google Ads' },
-      { icon: logos.googleAnalytics, label: 'Google Analytics 4' },
-      { icon: logos.metaAds,       label: 'Meta Ads Manager' },
-      { icon: logos.semrush,       label: 'SEMrush' },
-      { icon: logos.ahrefs,        label: 'Ahrefs' },
-      { icon: logos.hubspot,       label: 'HubSpot' },
-      { icon: logos.mailchimp,     label: 'Mailchimp' },
-      { icon: logos.hotjar,        label: 'Hotjar' },
-      { icon: logos.searchConsole, label: 'Google Search Console' },
+      { icon: <I C={SiGoogleads} color="#4285F4" />, label: "Google Ads" },
+      {
+        icon: <I C={SiGoogleanalytics} color="#E37400" />,
+        label: "Google Analytics 4",
+      },
+      { icon: <I C={SiMeta} color="#0082FB" />, label: "Meta Ads Manager" },
+      { icon: <I C={SiSemrush} color="#FF642D" />, label: "SEMrush" },
+      { icon: <AhrefsIcon />, label: "Ahrefs" },
+      { icon: <I C={SiHubspot} color="#FF7A59" />, label: "HubSpot" },
+      { icon: <I C={SiMailchimp} color="#FFE01B" />, label: "Mailchimp" },
+      { icon: <I C={SiHotjar} color="#FD3A5C" />, label: "Hotjar" },
+      {
+        icon: <I C={SiGooglesearchconsole} color="#4285F4" />,
+        label: "Google Search Console",
+      },
     ],
   },
   {
-    label: 'AI & GenAI',
+    label: "AI & GenAI",
     items: [
-      { icon: logos.openai,      label: 'OpenAI GPT-4' },
-      { icon: logos.claude,      label: 'Anthropic Claude' },
-      { icon: logos.langchain,   label: 'LangChain' },
-      { icon: logos.perplexity,  label: 'Perplexity AI' },
-      { icon: logos.midjourney,  label: 'Midjourney' },
-      { icon: logos.huggingface, label: 'Hugging Face' },
-      { icon: logos.make,        label: 'Make (Integromat)' },
-      { icon: logos.n8n,         label: 'n8n Automation' },
+      { icon: <OpenAIIcon />, label: "OpenAI GPT-4" },
+      {
+        icon: <I C={SiAnthropic} color="#CC785C" />,
+        label: "Anthropic Claude",
+      },
+      { icon: <I C={SiLangchain} color="#1C3144" />, label: "LangChain" },
+      { icon: <I C={SiPerplexity} color="#20808D" />, label: "Perplexity AI" },
+      { icon: <I C={SiHuggingface} color="#FFD21E" />, label: "Hugging Face" },
+      { icon: <I C={SiMake} color="#6D00CC" />, label: "Make (Integromat)" },
+      { icon: <I C={SiN8N} color="#EA4B71" />, label: "n8n Automation" },
     ],
   },
   {
-    label: 'Frontend',
+    label: "Frontend",
     items: [
-      { icon: logos.react,      label: 'React.js' },
-      { icon: logos.nextjs,     label: 'Next.js' },
-      { icon: logos.typescript, label: 'TypeScript' },
-      { icon: logos.tailwind,   label: 'Tailwind CSS' },
-      { icon: logos.vue,        label: 'Vue.js' },
-      { icon: logos.figma,      label: 'Figma' },
-      { icon: logos.html,       label: 'HTML / CSS' },
-      { icon: logos.framer,     label: 'Framer Motion' },
+      { icon: <I C={SiReact} color="#61DAFB" />, label: "React.js" },
+      { icon: <I C={SiNextdotjs} color="#ffffff" />, label: "Next.js" },
+      { icon: <I C={SiTypescript} color="#3178C6" />, label: "TypeScript" },
+      { icon: <I C={SiTailwindcss} color="#06B6D4" />, label: "Tailwind CSS" },
+      { icon: <I C={SiVuedotjs} color="#42B883" />, label: "Vue.js" },
+      { icon: <I C={SiFigma} color="#F24E1E" />, label: "Figma" },
+      { icon: <I C={SiHtml5} color="#E34F26" />, label: "HTML / CSS" },
+      { icon: <I C={SiFramer} color="#0055FF" />, label: "Framer Motion" },
     ],
   },
   {
-    label: 'Backend',
+    label: "Backend",
     items: [
-      { icon: logos.nodejs,   label: 'Node.js' },
-      { icon: logos.python,   label: 'Python' },
-      { icon: logos.laravel,  label: 'PHP / Laravel' },
-      { icon: logos.fastapi,  label: 'FastAPI' },
-      { icon: logos.restapi,  label: 'REST APIs' },
-      { icon: logos.graphql,  label: 'GraphQL' },
-      { icon: logos.express,  label: 'Express.js' },
-      { icon: logos.fastify,  label: 'Fastify' },
+      { icon: <I C={SiNodedotjs} color="#339933" />, label: "Node.js" },
+      { icon: <I C={SiPython} color="#3776AB" />, label: "Python" },
+      { icon: <I C={SiLaravel} color="#FF2D20" />, label: "PHP / Laravel" },
+      { icon: <I C={SiFastapi} color="#009688" />, label: "FastAPI" },
+      {
+        icon: <I C={SiOpenapiinitiative} color="#6BA539" />,
+        label: "REST APIs",
+      },
+      { icon: <I C={SiGraphql} color="#E10098" />, label: "GraphQL" },
+      { icon: <I C={SiExpress} color="#ffffff" />, label: "Express.js" },
+      { icon: <I C={SiFastify} color="#ffffff" />, label: "Fastify" },
     ],
   },
   {
-    label: 'Mobile',
+    label: "Mobile",
     items: [
-      { icon: logos.reactNative, label: 'React Native' },
-      { icon: logos.flutter,     label: 'Flutter' },
-      { icon: logos.expo,        label: 'Expo' },
-      { icon: logos.swift,       label: 'iOS (Swift)' },
-      { icon: logos.kotlin,      label: 'Android (Kotlin)' },
-      { icon: logos.pwa,         label: 'Progressive Web Apps' },
+      { icon: <I C={SiReact} color="#61DAFB" />, label: "React Native" },
+      { icon: <I C={SiFlutter} color="#54C5F8" />, label: "Flutter" },
+      { icon: <I C={SiExpo} color="#ffffff" />, label: "Expo" },
+      { icon: <I C={SiSwift} color="#F05138" />, label: "iOS (Swift)" },
+      { icon: <I C={SiKotlin} color="#7F52FF" />, label: "Android (Kotlin)" },
+      { icon: <PwaIcon />, label: "Progressive Web Apps" },
     ],
   },
   {
-    label: 'Database',
+    label: "Database",
     items: [
-      { icon: logos.postgres,  label: 'PostgreSQL' },
-      { icon: logos.mongodb,   label: 'MongoDB' },
-      { icon: logos.mysql,     label: 'MySQL' },
-      { icon: logos.redis,     label: 'Redis' },
-      { icon: logos.firebase,  label: 'Firebase' },
-      { icon: logos.supabase,  label: 'Supabase' },
+      { icon: <I C={SiPostgresql} color="#336791" />, label: "PostgreSQL" },
+      { icon: <I C={SiMongodb} color="#47A248" />, label: "MongoDB" },
+      { icon: <I C={SiMysql} color="#00758F" />, label: "MySQL" },
+      { icon: <I C={SiRedis} color="#DC382D" />, label: "Redis" },
+      { icon: <I C={SiFirebase} color="#FFCA28" />, label: "Firebase" },
+      { icon: <I C={SiSupabase} color="#3ECF8E" />, label: "Supabase" },
     ],
   },
   {
-    label: 'Cloud',
+    label: "Cloud",
     items: [
-      { icon: logos.aws,          label: 'AWS' },
-      { icon: logos.gcp,          label: 'Google Cloud' },
-      { icon: logos.vercel,       label: 'Vercel' },
-      { icon: logos.cloudflare,   label: 'Cloudflare' },
-      { icon: logos.digitalocean, label: 'DigitalOcean' },
-      { icon: logos.azure,        label: 'Azure' },
+      { icon: <AwsIcon />, label: "AWS" },
+      { icon: <I C={SiGooglecloud} color="#4285F4" />, label: "Google Cloud" },
+      { icon: <I C={SiVercel} color="#ffffff" />, label: "Vercel" },
+      { icon: <I C={SiCloudflare} color="#F38020" />, label: "Cloudflare" },
+      { icon: <I C={SiDigitalocean} color="#0080FF" />, label: "DigitalOcean" },
+      { icon: <AzureIcon />, label: "Azure" },
     ],
   },
   {
-    label: 'DevOps',
+    label: "DevOps",
     items: [
-      { icon: logos.docker,     label: 'Docker' },
-      { icon: logos.github,     label: 'GitHub Actions' },
-      { icon: logos.cicd,       label: 'CI/CD Pipelines' },
-      { icon: logos.linux,      label: 'Linux / Bash' },
-      { icon: logos.kubernetes, label: 'Kubernetes' },
-      { icon: logos.nginx,      label: 'Nginx' },
+      { icon: <I C={SiDocker} color="#2496ED" />, label: "Docker" },
+      {
+        icon: <I C={SiGithubactions} color="#2088FF" />,
+        label: "GitHub Actions",
+      },
+      { icon: <I C={SiCircleci} color="#343434" />, label: "CI/CD Pipelines" },
+      { icon: <I C={SiLinux} color="#FCC624" />, label: "Linux / Bash" },
+      { icon: <I C={SiKubernetes} color="#326CE5" />, label: "Kubernetes" },
+      { icon: <I C={SiNginx} color="#009639" />, label: "Nginx" },
     ],
   },
-]
-
-// ─── Component ────────────────────────────────────────────────────────────────
+];
 
 export default function TechSection() {
   const [active, setActive] = useState(0)
@@ -555,11 +252,12 @@ export default function TechSection() {
           Our Stack
         </span>
         <h2 className="text-[38px] font-bold text-white">
-          <span className="text-blue-500">Technologies</span> and Platforms We Use
+          <span className="text-blue-500">Technologies</span> and Platforms We
+          Use
         </h2>
         <p className="text-gray-500 text-[15px] mt-3 max-w-xl mx-auto leading-7">
-          We work with the latest tools across marketing, development and AI
-          to deliver high-performance digital solutions.
+          We work with the latest tools across marketing, development and AI to
+          deliver high-performance digital solutions.
         </p>
       </div>
 
@@ -569,10 +267,11 @@ export default function TechSection() {
           <button
             key={i}
             onClick={() => setActive(i)}
-            className={`cursor-pointer pb-3 px-4 text-[14px] font-medium whitespace-nowrap transition-colors duration-200 border-b-2 -mb-[2px]
-              ${active === i
-                ? 'text-blue-400 border-blue-400'
-                : 'text-gray-500 border-transparent hover:text-gray-300'
+            className={`cursor-pointer pb-3 px-4 text-[14px] font-medium whitespace-nowrap transition-colors duration-200 border-b-2 -mb-0.5
+              ${
+                active === i
+                  ? "text-blue-400 border-blue-400"
+                  : "text-gray-500 border-transparent hover:text-gray-300"
               }`}
           >
             {tab.label}
@@ -587,7 +286,7 @@ export default function TechSection() {
             key={i}
             className="cursor-pointer flex flex-col items-center gap-3 border border-gray-700 hover:border-blue-500 hover:bg-blue-500/10 rounded-2xl px-4 py-5 transition-all duration-200 group"
           >
-            <div className="w-12 h-12 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
+            <div className="w-12 h-12 flex items-center justify-center">
               {item.icon}
             </div>
             <span className="text-gray-400 text-[12px] font-medium text-center leading-tight group-hover:text-gray-200 transition-colors">
@@ -597,5 +296,5 @@ export default function TechSection() {
         ))}
       </div>
     </section>
-  )
+  );
 }

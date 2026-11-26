@@ -93,22 +93,21 @@ export default function HireExpertsSection() {
   return (
     <section className="bg-[#0d0d0d] py-24 px-6">
       <div className="max-w-6xl mx-auto">
-
         {/* Header */}
         <div className="mb-14">
           <span className="inline-block text-blue-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">
-            Dedicated Experts
+            Hire Experts
           </span>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <h2 className="text-white text-4xl md:text-[44px] font-bold leading-tight max-w-xl">
-                Build Your{' '}
-                <span className="text-blue-500">Digital Team</span>{' '}
+                Build Your <span className="text-blue-500">Digital Team</span>{" "}
                 with Reachmest
               </h2>
               <p className="text-zinc-400 mt-4 max-w-xl text-[15px] leading-7">
-                Get dedicated marketing professionals, creative specialists and software developers.
-                Scale flexibly and bring your digital projects to life.
+                Get dedicated marketing professionals, creative specialists and
+                software developers. Scale flexibly and bring your digital
+                projects to life.
               </p>
             </div>
             <a
@@ -160,9 +159,12 @@ export default function HireExpertsSection() {
         {/* Bottom strip */}
         <div className="mt-14 rounded-2xl bg-zinc-900/60 border border-zinc-800 px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="text-white font-bold text-xl">Flexible Hiring. Dedicated Expertise. Better Growth.</p>
+            <p className="text-white font-bold text-xl">
+              Flexible Hiring. Dedicated Expertise. Better Growth.
+            </p>
             <p className="text-zinc-400 text-[14px] mt-1">
-              Scale your capabilities with professionals aligned to your project scope, timeline and objectives.
+              Scale your capabilities with professionals aligned to your project
+              scope, timeline and objectives.
             </p>
           </div>
           <a
@@ -173,8 +175,7 @@ export default function HireExpertsSection() {
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
-
       </div>
     </section>
-  )
+  );
 }

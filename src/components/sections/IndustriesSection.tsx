@@ -635,7 +635,7 @@ function IndustryCard({
         )}
         {industry.icon}
       </svg>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />
       <span className="absolute bottom-3 left-3 right-3 text-white font-semibold text-[13px] leading-tight">
         {industry.label}
       </span>

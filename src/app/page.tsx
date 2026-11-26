@@ -6,7 +6,7 @@ import HireExpertsSection from '@/components/sections/HireExpertsSection'
 import IndustriesSection from '@/components/sections/IndustriesSection'
 import ServicesSection from '@/components/sections/ServicesSection'
 import SwitchingSection from '@/components/sections/SwitchingSection'
-import TechSection from '@/components/sections/TechSection'
+import TechSectionClient from '@/components/sections/TechSectionClient'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import WhyUsSection from '@/components/sections/WhyUsSection'
 import WorkingProcessSection from '@/components/sections/WorkingProcessSection'
@@ -21,7 +21,7 @@ export default function Home() {
       <SwitchingSection />
       <ComparisonSection />
       <HireExpertsSection />
-      <TechSection />
+      <TechSectionClient />
       <IndustriesSection />
       <TestimonialsSection />
       <FAQSection />
